@@ -1,0 +1,37 @@
+# 服务器相关配置
+server:
+  port: 3000
+
+# spring相关配置
+spring:
+  # redis
+  redis:
+    # redis服务器连接端口
+    port: 6379
+    # redis服务器地址
+    host: 127.0.0.1
+    # redis数据库索引
+    database: 0
+    jedis:
+      pool:
+        # 连接池最大连接数
+        max-active: 8
+        # 连接池最大阻塞等待时间
+        max-wait: 1
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        # 连接池中的最小空闲连接
+        min-idle: 0
+    # 连接超时时间 (毫秒)
+    timeout: 5000
+
+  # MySQL相关配置
+  datasource:
+    # MySQL用户名
+    username: root
+    # MySQL密码
+    password: Lzx12345
+    # 数据库链接
+    url: jdbc:mysql://localhost:3306/kob?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+    # 连接类名
+    driver-class-name: com.mysql.cj.jdbc.Driver
