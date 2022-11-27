@@ -37,3 +37,7 @@
 > 修复springboot项目.loadUpdated问题并实现测试类
 >
 > 添加CorsConfig解决前后端跨域访问问题
+
+### 2022.11.27
+
+> 创建SecurityConfig配置类
