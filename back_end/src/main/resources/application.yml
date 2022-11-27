@@ -4,6 +4,18 @@ server:
 
 # spring相关配置
 spring:
+
+  # MySQL相关配置
+  datasource:
+    # MySQL用户名
+    username: root
+    # MySQL密码
+    password: Lzx12345
+    # 数据库链接
+    url: jdbc:mysql://localhost:3306/kob?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+    # 连接类名
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
   # redis
   redis:
     # redis服务器连接端口
@@ -25,13 +37,13 @@ spring:
     # 连接超时时间 (毫秒)
     timeout: 5000
 
-  # MySQL相关配置
-  datasource:
-    # MySQL用户名
-    username: root
-    # MySQL密码
-    password: Lzx12345
-    # 数据库链接
-    url: jdbc:mysql://localhost:3306/kob?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
-    # 连接类名
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  # 项目中收发邮件所用的邮箱配置
+  mail:
+    # SMTP服务器
+    host: smtp.163.com
+    # 发送验证码邮箱
+    username: csoep_scnu@163.com
+    # 授权码
+    password: FkrVuSLeRL.6yC4
+    # 编码
+    default-encoding: utf-8
