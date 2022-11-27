@@ -4,5 +4,36 @@
 
 > An epic online examination platform for contemporary college students and teachers based on the principles of fairness, justice and openness in the post-epidemic era（一个面向当代大学生与教师打造的，后疫情时代下，基于公平公正公开原则的，史诗级在线考试平台）
 
+## 技术栈
 
+### 前端：
 
+1. node.js + npm 包管理工具
+2. vue + vuex + vue_router + vue-cli 框架
+3. bootstrap 开源工具包
+4. axios http请求工具
+
+### 后端：
+
+1. SpringBoot 框架
+2. SpringSecurity + JWT 安全框架
+3. SpringData
+4. MySQL + MyBatis + MyBatis-Plus 数据库
+5. Redis 缓存数据库
+6. Kafka 消息队列
+
+## 项目日志
+
+### 2022.11.24
+
+> Online-examination-platform 项目创建
+>
+> 创建项目前端部分 vue
+>
+> 创建项目后端部分 springboot
+
+### 2022.11.25
+
+> 修复springboot项目.loadUpdated问题并实现测试类
+>
+> 添加CorsConfig解决前后端跨域访问问题
