@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@MapperScan("com.csoep.backend.mapper")
 public class BackEndApplication {
 
 	public static void main(String[] args) {

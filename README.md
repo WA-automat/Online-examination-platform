@@ -57,3 +57,9 @@
 ### 2022.11.28
 
 > 实现UserDetails接口，创建LoginUser
+>
+> 更改并修复数据源
+>
+> 实现UserDetailsService，创建UserDetailsServiceImpl类
+>
+> 创建ResponseResult工具类
