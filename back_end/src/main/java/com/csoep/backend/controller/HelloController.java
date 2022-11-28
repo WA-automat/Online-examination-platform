@@ -1,5 +1,6 @@
 package com.csoep.backend.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.csoep.backend.mapper.UserMapper;
 import com.csoep.backend.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,10 @@ public class HelloController {
 	private UserMapper userMapper;
 
 	@RequestMapping("/hello")
-	public String hello() {
-		List<User> users = userMapper.selectList(null);
-		return users.toString();
+	public List<User> hello() {
+		QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("email", "1577696824@qq.com");
+		return userMapper.selectList(queryWrapper);
 	}
 
 }

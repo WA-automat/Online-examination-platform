@@ -1,6 +1,7 @@
 package com.csoep.backend.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class User {
 	 * 该变量是非空的并且具有自增的性质
 	 */
 	@TableId(type = IdType.AUTO)
+	@TableField("id")
 	private Integer id;
 
 	/**
@@ -33,6 +35,7 @@ public class User {
 	 * 是非空的
 	 */
 	@NonNull
+	@TableField("username")
 	private String username;
 
 	/**
@@ -40,6 +43,7 @@ public class User {
 	 * 是非空的
 	 */
 	@NonNull
+	@TableField("password")
 	private String password;
 
 	/**
@@ -47,12 +51,15 @@ public class User {
 	 * 是非空的
 	 */
 	@NonNull
+	@TableField("email")
 	private String email;
 
 	/**
-	 * 用户的电话号码
+	 * 用户的电子邮箱
 	 * 是非空的
 	 */
 	@NonNull
+	@TableField("phone")
 	private String phone;
+
 }
