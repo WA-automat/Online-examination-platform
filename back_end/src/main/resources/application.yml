@@ -47,3 +47,11 @@ spring:
     password: FkrVuSLeRL.6yC4
     # 编码
     default-encoding: utf-8
+
+  # security配置
+  security:
+    # 配置一个用户信息
+    user:
+      name: user
+      password: 123456
+      roles: ADMIN

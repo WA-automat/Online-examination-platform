@@ -53,3 +53,7 @@
 > > 5. 用户email
 >
 > 创建JwtUtil工具类
+
+### 2022.11.28
+
+> 实现UserDetails接口，创建LoginUser

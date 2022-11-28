@@ -43,17 +43,16 @@ public class User {
 	private String password;
 
 	/**
-	 * 用户的手机号码
-	 * 是非空的
-	 */
-	@NonNull
-	private String phoneNumber;
-
-	/**
 	 * 用户的电子邮箱
 	 * 是非空的
 	 */
 	@NonNull
 	private String email;
 
+	/**
+	 * 用户的电话号码
+	 * 是非空的
+	 */
+	@NonNull
+	private String phone;
 }

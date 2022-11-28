@@ -15,6 +15,8 @@ import java.util.UUID;
 /**
  * JwtUtil
  * 生成JwtToken和解析Token的工具类
+ * @author WA_automat
+ * @since 1.0
  */
 @Component
 public class JwtUtil {
