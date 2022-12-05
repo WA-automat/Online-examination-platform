@@ -69,7 +69,8 @@ public class SecurityConfig {
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 				.authorizeRequests()
-				.antMatchers("/user/login").anonymous()
+				// 放行注册和登录接口
+				.antMatchers("/user/register", "/user/login").anonymous()
 				.anyRequest().authenticated();
 
 		// 配置认证过滤器

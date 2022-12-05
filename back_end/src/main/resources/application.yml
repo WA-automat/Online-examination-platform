@@ -43,8 +43,9 @@ spring:
     host: smtp.163.com
     # 发送验证码邮箱
     username: csoep_scnu@163.com
+    # 该邮箱的密码：FkrVuSLeRL.6yC4
     # 授权码
-    password: FkrVuSLeRL.6yC4
+    password: VJTARWHZASLJCOGX
     # 编码
     default-encoding: utf-8
 

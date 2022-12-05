@@ -1,6 +1,7 @@
 package com.csoep.backend.service.Impl.user;
 
 import com.csoep.backend.pojo.LoginUser;
+import com.csoep.backend.pojo.User;
 import com.csoep.backend.service.user.LoginService;
 import com.csoep.backend.utils.JwtUtil;
 import com.csoep.backend.utils.RedisCache;
@@ -28,11 +29,11 @@ public class LoginServiceImpl implements LoginService {
 	private RedisCache redisCache;
 
 	@Override
-	public ResponseResult login(String username, String password) {
+	public ResponseResult login(User user) {
 
 		// AuthenticationManager 进行用户认证
 		UsernamePasswordAuthenticationToken authenticationToken =
-				new UsernamePasswordAuthenticationToken(username, password);
+				new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
 		Authentication authenticate = authenticationManager.authenticate(authenticationToken);
 
 		// 如果认证没通过，给出对应提示

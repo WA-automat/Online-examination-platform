@@ -71,3 +71,5 @@
 > 创建登录接口LoginController
 >
 > 配置Redis数据库
+>
+> 创建注册接口RegisterController
