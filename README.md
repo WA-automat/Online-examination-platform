@@ -73,3 +73,5 @@
 > 配置Redis数据库
 >
 > 创建注册接口RegisterController
+>
+> 添加字段访问用户的Service

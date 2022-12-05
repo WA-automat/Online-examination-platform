@@ -20,9 +20,12 @@ public class LoginController {
 	private LoginService loginService;
 
 	@PostMapping("/user/login")
-	public ResponseResult login(@RequestBody User user) {
+	public ResponseResult login(
+			@RequestParam String username,
+			@RequestParam String password
+	) {
 		// 登录
-		return loginService.login(user);
+		return loginService.login(username, password);
 	}
 
 }

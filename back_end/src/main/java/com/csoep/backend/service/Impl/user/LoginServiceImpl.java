@@ -29,11 +29,11 @@ public class LoginServiceImpl implements LoginService {
 	private RedisCache redisCache;
 
 	@Override
-	public ResponseResult login(User user) {
+	public ResponseResult login(String username, String password) {
 
 		// AuthenticationManager 进行用户认证
 		UsernamePasswordAuthenticationToken authenticationToken =
-				new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+				new UsernamePasswordAuthenticationToken(username, password);
 		Authentication authenticate = authenticationManager.authenticate(authenticationToken);
 
 		// 如果认证没通过，给出对应提示

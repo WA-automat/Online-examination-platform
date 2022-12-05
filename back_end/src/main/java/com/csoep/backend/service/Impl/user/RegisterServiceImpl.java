@@ -3,6 +3,7 @@ package com.csoep.backend.service.Impl.user;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.csoep.backend.mapper.UserMapper;
 import com.csoep.backend.pojo.User;
+import com.csoep.backend.service.user.FieldService;
 import com.csoep.backend.service.user.RegisterService;
 import com.csoep.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class RegisterServiceImpl implements RegisterService {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private FieldService fieldService;
 
 	@Override
 	public ResponseResult register(
@@ -61,24 +65,21 @@ public class RegisterServiceImpl implements RegisterService {
 		LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
 
 		// 用户名是否重复
-		queryWrapper.eq(User::getUsername, username);
-		User userFromUsername = userMapper.selectOne(queryWrapper);
+		fieldService.userByField(username)
 		if (!Objects.isNull(userFromUsername)) {
 			map.put("state", "error");
 			return new ResponseResult(400, "该用户名已被使用", map);
 		}
 
 		// 邮箱是否重复
-		queryWrapper.eq(User::getEmail, username);
-		User userFromEmail = userMapper.selectOne(queryWrapper);
+		User userFromEmail = fieldService.userByField(email);
 		if (!Objects.isNull(userFromEmail)) {
 			map.put("state", "error");
 			return new ResponseResult(400, "该邮箱已被使用", map);
 		}
 
 		// 手机号码是否重复
-		queryWrapper.eq(User::getPhone, username);
-		User userFromPhone = userMapper.selectOne(queryWrapper);
+		User userFromPhone = fieldService.userByField(phone);
 		if (!Objects.isNull(userFromPhone)) {
 			map.put("state", "error");
 			return new ResponseResult(400, "该手机号码已被使用", map);
