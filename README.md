@@ -63,3 +63,11 @@
 > 实现UserDetailsService，创建UserDetailsServiceImpl类
 >
 > 创建ResponseResult工具类
+
+### 2022.12.5
+
+> 配置Jwt认证过滤器
+>
+> 创建登录接口LoginController
+>
+> 配置Redis数据库

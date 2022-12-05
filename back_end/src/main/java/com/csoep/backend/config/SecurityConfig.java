@@ -1,15 +1,20 @@
 package com.csoep.backend.config;
 
+import com.csoep.backend.filter.JwtAuthenticationTokenFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * SpringSecurity配置类
@@ -20,6 +25,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+	@Autowired
+	private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
 	/**
 	 * 创建密码加密工具
@@ -40,10 +48,10 @@ public class SecurityConfig {
 	 * @author WA_automat
 	 * @since 1.0
 	 */
-//	@Bean
-//	public AuthenticationManager authenticationManagerBean() throws Exception {
-//		return null;
-//	}
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
+	}
 
 	/**
 	 * HttpSecurity的配置
@@ -63,6 +71,9 @@ public class SecurityConfig {
 				.authorizeRequests()
 				.antMatchers("/user/login").anonymous()
 				.anyRequest().authenticated();
+
+		// 配置认证过滤器
+		httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
 		// 返回过滤链
 		return httpSecurity.build();
