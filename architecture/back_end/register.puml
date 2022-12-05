@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor user
+database mysql
+
+user -> front_end: 打开注册页面
+front_end -> user: 返回注册页面
+user -> front_end: 填写邮箱信息
+front_end -> back_end: 发送目标邮箱信息
+back_end -> back_end: 调用API以实现向目标邮箱发送验证码
+back_end -> front_end: 将发送结果与状态返回给前端
+front_end -> user: 前端将结果可视化的展示给用户
+user -> front_end: 填写其他信息与验证码
+front_end -> back_end: 将表单发送给后端
+back_end -> back_end: 验证并调用注册API
+back_end -> mysql: 将用户信息存储至数据库中
+
+@enduml
