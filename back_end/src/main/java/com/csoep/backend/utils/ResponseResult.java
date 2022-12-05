@@ -1,6 +1,5 @@
 package com.csoep.backend.utils;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

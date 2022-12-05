@@ -8,8 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -71,4 +73,9 @@ class BackEndApplicationTests {
 				).get("sub"));
 	}
 
+	@Test
+	public void JavaMailSenderTest() {
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+
+	}
 }

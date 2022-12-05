@@ -21,7 +21,7 @@ public class RegisterServiceImpl implements RegisterService {
 
 	@Autowired
 	private UserMapper userMapper;
-
+	
 	@Autowired
 	private FieldService fieldService;
 
@@ -65,7 +65,7 @@ public class RegisterServiceImpl implements RegisterService {
 		LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
 
 		// 用户名是否重复
-		fieldService.userByField(username)
+		User userFromUsername = fieldService.userByField(username);
 		if (!Objects.isNull(userFromUsername)) {
 			map.put("state", "error");
 			return new ResponseResult(400, "该用户名已被使用", map);

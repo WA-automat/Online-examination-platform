@@ -48,6 +48,14 @@ spring:
     password: VJTARWHZASLJCOGX
     # 编码
     default-encoding: utf-8
+    # 发送邮件时采用ssl安全连接
+    properties:
+     mail:
+      smtp:
+       ssl:
+        enable: true
+    # 端口号
+    port: 25
 
   # security配置
   security:
