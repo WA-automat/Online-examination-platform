@@ -23,9 +23,10 @@ public class RegisterController {
 			@RequestParam String password,
 			@RequestParam String confirmPassword,
 			@RequestParam String email,
-			@RequestParam String phone
+			@RequestParam String phone,
+			@RequestParam String checkCode
 	) {
-		return registerService.register(username, password, confirmPassword, email, phone);
+		return registerService.register(username, password, confirmPassword, email, phone, checkCode);
 	}
 
 }

@@ -42,7 +42,6 @@ public class SecurityConfig {
 	}
 
 	/**
-	 * TODO 需要重新构造
 	 * 暴露AuthenticationManager
 	 *
 	 * @author WA_automat

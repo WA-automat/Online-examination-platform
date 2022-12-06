@@ -3,7 +3,9 @@ package com.csoep.backend;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.csoep.backend.mapper.UserMapper;
 import com.csoep.backend.pojo.User;
+import com.csoep.backend.service.mail.CheckCodeService;
 import com.csoep.backend.utils.JwtUtil;
+import com.csoep.backend.utils.ResponseResult;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * SpringBoot测试类
@@ -83,9 +86,24 @@ class BackEndApplicationTests {
 		String code = "xxx"; // 验证码
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setSubject("【xxx】验证消息"); // 发送邮件的标题
-		message.setText("你正在进行登录操作，验证码："+ code + "，切勿将验证码泄露给他人，本条验证码有效期2分钟。"); // 发送邮件的内容
+		message.setText("你正在进行登录操作，验证码：" + code + "，切勿将验证码泄露给他人，本条验证码有效期2分钟。"); // 发送邮件的内容
 		message.setTo("1577696824@qq.com"); // 登录用户的邮箱账号
 		message.setFrom("csoep_scnu@163.com"); // 发送邮件的邮箱账号，注意一定要和配置文件中的一致！
 		sender.send(message);
+	}
+
+	@Autowired
+	private CheckCodeService checkCodeService;
+
+	/**
+	 * 测试CheckCodeService
+	 */
+	@Test
+	public void CheckCodeServiceTest() {
+		ResponseResult responce = checkCodeService.sendCheckCode("test", "1577696824@qq.com");
+		System.out.println(responce);
+		Scanner scanner = new Scanner(System.in);
+		String code = scanner.nextLine();
+		checkCodeService.check("test", "1577696824@qq.com", code);
 	}
 }

@@ -18,10 +18,10 @@ spring:
 
   # redis
   redis:
-    # redis服务器连接端口
-    port: 6379
     # redis服务器地址
     host: 127.0.0.1
+    # redis服务器连接端口
+    port: 6379
     # redis数据库索引
     database: 0
     jedis:
@@ -36,6 +36,7 @@ spring:
         min-idle: 0
     # 连接超时时间 (毫秒)
     timeout: 5000
+    password:
 
   # 项目中收发邮件所用的邮箱配置
   mail:

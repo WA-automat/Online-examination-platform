@@ -3,6 +3,7 @@ package com.csoep.backend.service.Impl.user;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.csoep.backend.mapper.UserMapper;
 import com.csoep.backend.pojo.User;
+import com.csoep.backend.service.mail.CheckCodeService;
 import com.csoep.backend.service.user.FieldService;
 import com.csoep.backend.service.user.RegisterService;
 import com.csoep.backend.utils.ResponseResult;
@@ -21,9 +22,12 @@ public class RegisterServiceImpl implements RegisterService {
 
 	@Autowired
 	private UserMapper userMapper;
-	
+
 	@Autowired
 	private FieldService fieldService;
+
+	@Autowired
+	private CheckCodeService checkCodeService;
 
 	@Override
 	public ResponseResult register(
@@ -31,7 +35,8 @@ public class RegisterServiceImpl implements RegisterService {
 			String password,
 			String confirmPassword,
 			String email,
-			String phone
+			String phone,
+			String checkCode
 	) {
 
 		// 用于ResponseResult返回的状态
@@ -83,6 +88,12 @@ public class RegisterServiceImpl implements RegisterService {
 		if (!Objects.isNull(userFromPhone)) {
 			map.put("state", "error");
 			return new ResponseResult(400, "该手机号码已被使用", map);
+		}
+
+		boolean checkResult = checkCodeService.check("register", email, checkCode);
+		if (!checkResult) {
+			map.put("state", "error");
+			return new ResponseResult(400, "验证码错误", map);
 		}
 
 		// 注册成功后，将user加入数据库
