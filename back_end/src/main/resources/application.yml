@@ -50,12 +50,14 @@ spring:
     default-encoding: utf-8
     # 发送邮件时采用ssl安全连接
     properties:
-     mail:
-      smtp:
-       ssl:
-        enable: true
-    # 端口号
-    port: 25
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+          starttls:
+            enable: true
+            required: true
 
   # security配置
   security:

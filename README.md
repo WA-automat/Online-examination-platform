@@ -75,3 +75,7 @@
 > 创建注册接口RegisterController
 >
 > 添加字段访问用户的Service
+
+### 2022.12.6
+
+> 创建邮件工具类

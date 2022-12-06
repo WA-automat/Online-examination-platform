@@ -7,11 +7,10 @@ import com.csoep.backend.utils.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -73,9 +72,20 @@ class BackEndApplicationTests {
 				).get("sub"));
 	}
 
+	@Autowired(required = false)
+	private JavaMailSender sender; // 引入Spring Mail依赖后，会自动装配到IOC容器。用来发送邮件
+
+	/**
+	 * 测试JavaMailSender
+	 */
 	@Test
 	public void JavaMailSenderTest() {
-		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-
+		String code = "xxx"; // 验证码
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setSubject("【xxx】验证消息"); // 发送邮件的标题
+		message.setText("你正在进行登录操作，验证码："+ code + "，切勿将验证码泄露给他人，本条验证码有效期2分钟。"); // 发送邮件的内容
+		message.setTo("1577696824@qq.com"); // 登录用户的邮箱账号
+		message.setFrom("csoep_scnu@163.com"); // 发送邮件的邮箱账号，注意一定要和配置文件中的一致！
+		sender.send(message);
 	}
 }

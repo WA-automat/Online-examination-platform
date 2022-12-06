@@ -8,6 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 解决前后端跨域问题的配置类
+ * @author WA_automat
+ * @since 1.0
+ */
 @Configuration
 public class CorsConfig implements Filter {
 	@Override
