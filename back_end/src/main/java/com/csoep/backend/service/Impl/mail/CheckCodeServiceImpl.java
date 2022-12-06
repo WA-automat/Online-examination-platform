@@ -52,8 +52,8 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 			}
 
 			// 将验证码存入redis，并设置过期时间为两分钟
-//			redisCache.setCacheObject(ops + ":" + to, code.toString());
-//			redisCache.expire(ops + ":", 2, TimeUnit.MINUTES);
+			redisCache.setCacheObject(ops + ":" + to, code.toString());
+			redisCache.expire(ops + ":", 2, TimeUnit.MINUTES);
 
 			// 返回ResponseResult
 			map.put("state", "success");
@@ -65,6 +65,7 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 			// 返回ResponseResult
 			map.put("state", "error");
 			return new ResponseResult(400, "验证码发送失败", map);
+
 		}
 
 	}
