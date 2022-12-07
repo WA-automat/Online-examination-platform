@@ -9,7 +9,9 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -77,6 +79,24 @@ public class SecurityConfig {
 
 		// 返回过滤链
 		return httpSecurity.build();
+	}
+
+	/**
+	 * 配置全局的某些通用事物，例如静态资源等
+	 *
+	 * @return WebSecurityCustomizer
+	 */
+	@Bean
+	public WebSecurityCustomizer securityCustomizer() {
+		return (web) -> web.ignoring().antMatchers(
+				"/static/**",
+				"/v2/api-docs",
+				"/configuration/ui",
+				"/swagger-resources/**",
+				"/configuration/security",
+				"/swagger-ui.html/",
+				"/swagger-ui.html/**",
+				"/webjars/**");
 	}
 
 }
