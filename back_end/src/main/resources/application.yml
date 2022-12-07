@@ -19,21 +19,11 @@ spring:
   # redis
   redis:
     # redis服务器地址
-    host: 127.0.0.1
+    host: localhost
     # redis服务器连接端口
     port: 6379
     # redis数据库索引
     database: 0
-#    jedis:
-#      pool:
-#        # 连接池最大连接数
-#        max-active: 8
-#        # 连接池最大阻塞等待时间
-#        max-wait: 1
-#        # 连接池中的最大空闲连接
-#        max-idle: 8
-#        # 连接池中的最小空闲连接
-#        min-idle: 0
     # 连接超时时间 (毫秒)
     timeout: 5000
     password:

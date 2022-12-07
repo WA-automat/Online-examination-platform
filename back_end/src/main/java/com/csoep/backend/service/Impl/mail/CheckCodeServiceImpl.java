@@ -5,13 +5,14 @@ import com.csoep.backend.utils.MailUtil;
 import com.csoep.backend.utils.RedisCache;
 import com.csoep.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 验证码实现类
@@ -25,13 +26,19 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 	@Autowired
 	private MailUtil mailSender;
 
+	@Value("${spring.redis.host}")
+	private String host;
+
+	@Value("${spring.redis.port}")
+	private Long port;
+
 	@Override
 	public ResponseResult sendCheckCode(String ops, String to) {
 
 		// 用于返回信息
 		Map<String, String> map = new HashMap<>();
 
-		try {
+		try (Jedis jedis = new Jedis(host, Math.toIntExact((port)))) {
 			// 生成验证码
 			Random helper = new Random();
 			String yzm = "1234567890abcdefghijklmnopqrstuvwxwz";
@@ -52,11 +59,24 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 			}
 
 			// 将验证码存入redis，并设置过期时间为两分钟
-			redisCache.setCacheObject(ops + ":" + to, code.toString());
-			redisCache.expire(ops + ":", 2, TimeUnit.MINUTES);
+//			redisCache.setCacheObject(ops + ":" + to, code.toString());
+//			redisCache.expire(ops + ":" + to, 2, TimeUnit.MINUTES);
+			jedis.connect();
+
+			// 若redis中存在发送到这个邮箱的验证码
+			// 则先删除它
+			if (!Objects.isNull(jedis.get(ops + ":" + to))) {
+				jedis.del(ops + ":" + to);
+			}
+
+			jedis.set(ops + ":" + to, code.toString());
+			jedis.expire(ops + ":" + to, 120L);
+//			jedis.expireAt(ops + ":" + to, 120 * 10000);
+//			System.out.println(jedis.get(ops + ":" + to));
 
 			// 返回ResponseResult
 			map.put("state", "success");
+			map.put("ops", ops);
 			map.put("email", to);
 			return new ResponseResult(200, "验证码发送成功", map);
 
@@ -74,7 +94,12 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 	public boolean check(String ops, String email, String code) {
 
 		// 从redis中取出验证码
-		String checkCode = redisCache.getCacheObject(ops + ":" + email);
+		Jedis jedis = new Jedis(host, Math.toIntExact((port)));
+		jedis.connect();
+
+		String checkCode = jedis.get(ops + ":" + email);
+//		System.out.println(checkCode);
+//		String checkCode = redisCache.getCacheObject(ops + ":" + email);
 		if (Objects.isNull(checkCode)) {
 			return false;
 		}
@@ -86,7 +111,8 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 
 		// 若正确，需要从redis中删除验证码
 		// 没删掉也没关系，我们已经设置验证码时间为2分钟
-		redisCache.deleteObject(ops + ":" + email);
+//		redisCache.deleteObject(ops + ":" + email);
+		jedis.del(ops + ":" + email);
 
 		return true;
 	}

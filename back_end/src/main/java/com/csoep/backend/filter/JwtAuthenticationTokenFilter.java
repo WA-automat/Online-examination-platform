@@ -1,15 +1,18 @@
 package com.csoep.backend.filter;
 
+import com.alibaba.fastjson.JSON;
 import com.csoep.backend.pojo.LoginUser;
 import com.csoep.backend.utils.JwtUtil;
 import com.csoep.backend.utils.RedisCache;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -29,6 +32,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private RedisCache redisCache;
+
+	@Value("${spring.redis.host}")
+	private String host;
+
+	@Value("${spring.redis.port}")
+	private Long port;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -55,7 +64,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
 		// 根据Token获取用户信息
 		String redisKey = "login:" + userid;
-		LoginUser loginUser = redisCache.getCacheObject(redisKey);
+
+		// 更换为Jedis
+		Jedis jedis = new Jedis(host, Math.toIntExact((port)));
+		jedis.connect();
+		LoginUser loginUser = (LoginUser) JSON.parse(jedis.get(redisKey));
 		if (Objects.isNull(loginUser)) {
 			throw new RuntimeException("用户未登录");
 		}

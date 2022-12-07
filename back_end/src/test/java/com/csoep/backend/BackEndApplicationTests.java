@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import redis.clients.jedis.Jedis;
 
 import java.util.List;
 import java.util.Scanner;
@@ -28,12 +29,6 @@ class BackEndApplicationTests {
 	 */
 	@Autowired
 	private UserMapper userMapper;
-
-	/**
-	 * 导入JwtUtil
-	 */
-	@Autowired
-	private JwtUtil jwtUtil;
 
 	/**
 	 * 测试UserMapper类
@@ -61,6 +56,12 @@ class BackEndApplicationTests {
 						"$2a$10$lZiOhjcXsQ0qR4yxKHY4uuGKYjlX9uLPkVlp8TqNvL6sizXeO.ME2")
 		);
 	}
+
+	/**
+	 * 导入JwtUtil
+	 */
+	@Autowired
+	private JwtUtil jwtUtil;
 
 	/**
 	 * 测试Jwt工具类
@@ -102,8 +103,10 @@ class BackEndApplicationTests {
 	public void CheckCodeServiceTest() {
 		ResponseResult responce = checkCodeService.sendCheckCode("test", "1577696824@qq.com");
 		System.out.println(responce);
-		Scanner scanner = new Scanner(System.in);
-		String code = scanner.nextLine();
-		checkCodeService.check("test", "1577696824@qq.com", code);
+	}
+
+	@Test
+	public void checkCodeTest() {
+		System.out.println(checkCodeService.check("test", "1577696824@qq.com", "hx4o97"));
 	}
 }

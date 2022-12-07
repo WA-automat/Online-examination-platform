@@ -1,16 +1,18 @@
 package com.csoep.backend.service.Impl.user;
 
+import com.alibaba.fastjson.JSON;
 import com.csoep.backend.pojo.LoginUser;
-import com.csoep.backend.pojo.User;
 import com.csoep.backend.service.user.LoginService;
 import com.csoep.backend.utils.JwtUtil;
 import com.csoep.backend.utils.RedisCache;
 import com.csoep.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +29,12 @@ public class LoginServiceImpl implements LoginService {
 
 	@Autowired
 	private RedisCache redisCache;
+
+	@Value("${spring.redis.host}")
+	private String host;
+
+	@Value("${spring.redis.port}")
+	private Long port;
 
 	@Override
 	public ResponseResult login(String username, String password) {
@@ -50,8 +58,12 @@ public class LoginServiceImpl implements LoginService {
 		Map<String, String> map = new HashMap<>();
 		map.put("token", jwt);
 
+		// 更换为Jedis
 		// 用户信息存入redis
-		redisCache.setCacheObject("login:" + userid, loginUser);
+		Jedis jedis = new Jedis(host, Math.toIntExact((port)));
+		jedis.connect();
+		jedis.set("login:" + userid, JSON.toJSONString(loginUser));
+//		redisCache.setCacheObject("login:" + userid, loginUser);
 
 		return new ResponseResult<>(200, "登录成功", map);
 	}
