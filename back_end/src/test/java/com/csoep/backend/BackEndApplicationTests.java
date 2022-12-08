@@ -1,6 +1,7 @@
 package com.csoep.backend;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.csoep.backend.mapper.MenuMapper;
 import com.csoep.backend.mapper.UserMapper;
 import com.csoep.backend.pojo.User;
 import com.csoep.backend.service.mail.CheckCodeService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import redis.clients.jedis.Jedis;
 
@@ -108,5 +110,14 @@ class BackEndApplicationTests {
 	@Test
 	public void checkCodeTest() {
 		System.out.println(checkCodeService.check("test", "1577696824@qq.com", "hx4o97"));
+	}
+
+	@Autowired
+	private MenuMapper menuMapper;
+
+	@Test
+	public void testMenuMapper() {
+		List<String> perms = menuMapper.selectPermsByUserId(1);
+		System.out.println(perms);
 	}
 }

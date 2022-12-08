@@ -57,3 +57,7 @@ spring:
       name: user
       password: 123456
       roles: ADMIN
+
+# MyBatis-Plus路径配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml

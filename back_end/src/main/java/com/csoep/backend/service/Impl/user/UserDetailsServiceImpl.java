@@ -1,6 +1,7 @@
 package com.csoep.backend.service.Impl.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.csoep.backend.mapper.MenuMapper;
 import com.csoep.backend.mapper.UserMapper;
 import com.csoep.backend.pojo.LoginUser;
 import com.csoep.backend.pojo.User;
@@ -10,6 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -24,6 +28,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 */
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private MenuMapper menuMapper;
 
 	/**
 	 * 实现UserDetailsService接口方法loadUserByUsername
@@ -46,9 +53,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new RuntimeException("用户名或密码错误");
 		}
 
-		// TODO 查询用户的权限信息
+		// 查询用户的权限信息
+		// List<String> list = new ArrayList<>(Arrays.asList("test", "admin"));
+		List<String> list = menuMapper.selectPermsByUserId(user.getId());
 
 		// 把数据封装成UserDetails对象返回
-		return new LoginUser(user);
+		return new LoginUser(user, list);
 	}
 }

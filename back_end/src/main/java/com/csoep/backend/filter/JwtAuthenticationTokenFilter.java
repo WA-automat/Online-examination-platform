@@ -68,15 +68,18 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 		// 更换为Jedis
 		Jedis jedis = new Jedis(host, Math.toIntExact((port)));
 		jedis.connect();
-		LoginUser loginUser = (LoginUser) JSON.parse(jedis.get(redisKey));
+		LoginUser loginUser = JSON.parseObject(jedis.get(redisKey), LoginUser.class);
 		if (Objects.isNull(loginUser)) {
 			throw new RuntimeException("用户未登录");
 		}
 
 		// 存入SecurityContextHolder
-		// TODO 权限信息需要补充
 		UsernamePasswordAuthenticationToken authenticationToken =
-				new UsernamePasswordAuthenticationToken(loginUser, null, null);
+				new UsernamePasswordAuthenticationToken(
+						loginUser,
+						null,
+						loginUser.getAuthorities()
+				);
 
 		SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 

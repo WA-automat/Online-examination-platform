@@ -63,6 +63,8 @@ public class LoginServiceImpl implements LoginService {
 		Jedis jedis = new Jedis(host, Math.toIntExact((port)));
 		jedis.connect();
 		jedis.set("login:" + userid, JSON.toJSONString(loginUser));
+		// 登录有效期最长为7天(即7天后必须重新登录)
+		jedis.expire("login:" + userid, 7 * 24 * 60 * 60L);
 //		redisCache.setCacheObject("login:" + userid, loginUser);
 
 		return new ResponseResult<>(200, "登录成功", map);
