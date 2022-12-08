@@ -78,9 +78,9 @@ public class SecurityConfig {
 				.and()
 				.authorizeRequests()
 				//放行swagger
-				.antMatchers("/swagger-ui.html","/swagger-resources/**","/webjars/**","/v2/**","/api/**").permitAll()
+				.antMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/v2/**", "/api/**").permitAll()
 				// 放行注册和登录接口
-				.antMatchers("/user/register", "/user/login").anonymous()
+				.antMatchers("/user/register", "/user/login", "/send/checkcode").anonymous()
 				.anyRequest().authenticated();
 
 		// 配置认证过滤器

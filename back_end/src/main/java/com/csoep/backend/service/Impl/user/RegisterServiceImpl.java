@@ -1,15 +1,18 @@
 package com.csoep.backend.service.Impl.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.csoep.backend.mapper.AssociateItemMapper;
 import com.csoep.backend.mapper.RoleMapper;
 import com.csoep.backend.mapper.UserMapper;
 import com.csoep.backend.pojo.Role;
 import com.csoep.backend.pojo.User;
+import com.csoep.backend.pojo.UserRoleAssociateItem;
 import com.csoep.backend.service.mail.CheckCodeService;
 import com.csoep.backend.service.user.FieldService;
 import com.csoep.backend.service.user.RegisterService;
 import com.csoep.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -33,6 +36,12 @@ public class RegisterServiceImpl implements RegisterService {
 
 	@Autowired
 	private RoleMapper roleMapper;
+
+	@Autowired
+	private AssociateItemMapper associateItemMapper;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public ResponseResult register(
@@ -112,11 +121,29 @@ public class RegisterServiceImpl implements RegisterService {
 		}
 
 		// 注册成功后，将user加入数据库
-		User user = new User(null, username, password, email, phone);
+		User user = new User(
+				null,
+				username,
+				passwordEncoder
+						.encode(password),
+				email,
+				phone);
 		userMapper.insert(user);
+
+		// 筛选原先的用户
+		LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+		lambdaQueryWrapper.eq(User::getUsername, user.getUsername());
+		User newUser = userMapper.selectOne(lambdaQueryWrapper);
 
 		// 为新的用户赋予权限
 		// 在这里应该先赋予学生权限
+		UserRoleAssociateItem userRoleAssociateItem =
+				new UserRoleAssociateItem(
+						null,
+						newUser.getId(),
+						role.getId());
+		// 添加到用户角色关联表中
+		associateItemMapper.insert(userRoleAssociateItem);
 
 
 		// 返回成功的ResponseResult
