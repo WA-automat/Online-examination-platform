@@ -13,7 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -29,6 +31,12 @@ public class SecurityConfig {
 
 	@Autowired
 	private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
+	@Autowired
+	private AuthenticationEntryPoint authenticationEntryPoint;
+
+	@Autowired
+	private AccessDeniedHandler accessDeniedHandler;
 
 	/**
 	 * 创建密码加密工具
@@ -77,6 +85,13 @@ public class SecurityConfig {
 
 		// 配置认证过滤器
 		httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
+		// 配置异常处理器
+		httpSecurity.exceptionHandling()
+				// 配置认证失败处理器
+				.authenticationEntryPoint(authenticationEntryPoint)
+				// 配置授权失败处理器
+				.accessDeniedHandler(accessDeniedHandler);
 
 		// 返回过滤链
 		return httpSecurity.build();
