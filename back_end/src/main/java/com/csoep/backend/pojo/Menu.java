@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -35,7 +32,6 @@ public class Menu implements Serializable {
 	@TableField(value = "perms")
 	private String perms;
 
-	@NonNull
 	@TableField(value = "status")
 	private Integer status;
 

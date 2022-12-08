@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 注册接口
  * 实现用户注册
+ * 自动赋予学生权限
  */
 @Api(value = "注册API")
 @RestController
@@ -40,7 +41,15 @@ public class RegisterController {
 			@RequestParam String phone,
 			@RequestParam String checkCode
 	) {
-		return registerService.register(username, password, confirmPassword, email, phone, checkCode);
+		return registerService.register(
+				username,
+				password,
+				confirmPassword,
+				email,
+				phone,
+				checkCode,
+				"student"   // 自动赋予学生权限
+		);
 	}
 
 }

@@ -11,5 +11,6 @@ public interface RegisterService {
 	                               String confirmPassword,
 	                               String email,
 	                               String phone,
-	                               String checkCode);
+	                               String checkCode,
+	                               String roleKey);
 }

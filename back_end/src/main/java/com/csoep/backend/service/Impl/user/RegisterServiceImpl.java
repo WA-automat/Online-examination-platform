@@ -1,7 +1,9 @@
 package com.csoep.backend.service.Impl.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.csoep.backend.mapper.RoleMapper;
 import com.csoep.backend.mapper.UserMapper;
+import com.csoep.backend.pojo.Role;
 import com.csoep.backend.pojo.User;
 import com.csoep.backend.service.mail.CheckCodeService;
 import com.csoep.backend.service.user.FieldService;
@@ -29,6 +31,9 @@ public class RegisterServiceImpl implements RegisterService {
 	@Autowired
 	private CheckCodeService checkCodeService;
 
+	@Autowired
+	private RoleMapper roleMapper;
+
 	@Override
 	public ResponseResult register(
 			String username,
@@ -36,7 +41,8 @@ public class RegisterServiceImpl implements RegisterService {
 			String confirmPassword,
 			String email,
 			String phone,
-			String checkCode
+			String checkCode,
+			String roleKey
 	) {
 
 		// 用于ResponseResult返回的状态
@@ -96,9 +102,22 @@ public class RegisterServiceImpl implements RegisterService {
 			return new ResponseResult(400, "验证码错误", map);
 		}
 
+		// 找不到对应的权限
+		LambdaQueryWrapper<Role> queryWrappers = new LambdaQueryWrapper<>();
+		queryWrappers.eq(Role::getRoleKey, roleKey);
+		Role role = roleMapper.selectOne(queryWrappers);
+		if (Objects.isNull(role)) {
+			map.put("state", "error");
+			return new ResponseResult(400, "赋予权限错误", map);
+		}
+
 		// 注册成功后，将user加入数据库
 		User user = new User(null, username, password, email, phone);
 		userMapper.insert(user);
+
+		// 为新的用户赋予权限
+		// 在这里应该先赋予学生权限
+
 
 		// 返回成功的ResponseResult
 		map.put("state", "success");
