@@ -70,6 +70,8 @@ public class SecurityConfig {
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 				.authorizeRequests()
+				//放行swagger
+				.antMatchers("/swagger-ui.html","/swagger-resources/**","/webjars/**","/v2/**","/api/**").permitAll()
 				// 放行注册和登录接口
 				.antMatchers("/user/register", "/user/login").anonymous()
 				.anyRequest().authenticated();
@@ -89,14 +91,15 @@ public class SecurityConfig {
 	@Bean
 	public WebSecurityCustomizer securityCustomizer() {
 		return (web) -> web.ignoring().antMatchers(
-				"/static/**",
-				"/v2/api-docs",
-				"/configuration/ui",
+				"/swagger-ui.html",
+				"/v2/api-docs", // swagger api json
+				"/swagger-resources/configuration/ui", // 用来获取支持的动作
+				"/swagger-resources", // 用来获取api-docs的URI
+				"/swagger-resources/configuration/security", // 安全选项
 				"/swagger-resources/**",
-				"/configuration/security",
-				"/swagger-ui.html/",
-				"/swagger-ui.html/**",
-				"/webjars/**");
+				//补充路径，近期在搭建swagger接口文档时，通过浏览器控制台发现该/webjars路径下的文件被拦截，故加上此过滤条件即可。(2020-10-23)
+				"/webjars/**"
+		);
 	}
 
 }

@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +26,7 @@ public class SendCheckCodeController {
 			@ApiImplicitParam(name = "ops", value = "验证码操作"),
 			@ApiImplicitParam(name = "email", value = "用户邮箱")
 	})
-	@PostMapping("/send/checkcode")
+	@GetMapping("/send/checkcode")
 	public ResponseResult sendCheckCode(
 			@RequestParam String ops,
 			@RequestParam String email
