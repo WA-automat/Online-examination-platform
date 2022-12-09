@@ -77,8 +77,10 @@ public class SecurityConfig {
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 				.authorizeRequests()
-				//放行swagger
-				.antMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/v2/**", "/api/**").permitAll()
+				//下边的路径放行
+				.antMatchers("/v2/api-docs", "/swagger-resources/configuration/ui",
+						"/swagger-resources", "/swagger-resources/configuration/security",
+						"/swagger-ui.html", "/webjars/**").permitAll()
 				// 放行注册和登录接口
 				.antMatchers("/user/register", "/user/login", "/send/checkcode").anonymous()
 				.anyRequest().authenticated();
