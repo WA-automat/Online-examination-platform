@@ -9,7 +9,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
- 
+
+/**
+ * redis缓存工具类
+ * 在这个项目中已经不再使用
+ * 被JedisUtil代替
+ */
 @SuppressWarnings(value = { "unchecked", "rawtypes" })
 @Component
 public class RedisCache

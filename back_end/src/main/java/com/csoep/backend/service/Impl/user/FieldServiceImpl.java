@@ -1,12 +1,14 @@
 package com.csoep.backend.service.Impl.user;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.csoep.backend.mapper.UserMapper;
 import com.csoep.backend.pojo.User;
 import com.csoep.backend.service.user.FieldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 根据字段(用户名、邮箱、手机号码)获取用户信息的接口实现类
+ */
 @Service
 public class FieldServiceImpl implements FieldService {
 
@@ -15,19 +17,6 @@ public class FieldServiceImpl implements FieldService {
 
 	@Override
 	public User userByField(String field) {
-
-		// 匿名查询类
-		LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-
-		// 根据用户名查找
-		queryWrapper
-				.eq(User::getUsername, field)
-				.or()
-				.eq(User::getEmail, field)
-				.or()
-				.eq(User::getPhone, field);
-
-		// 获取用户
-		return userMapper.selectOne(queryWrapper);
+		return userMapper.userByField(field);
 	}
 }

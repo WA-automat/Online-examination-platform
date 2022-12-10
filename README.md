@@ -20,7 +20,7 @@
 3. SpringData
 4. MySQL + MyBatis + MyBatis-Plus 数据库
 5. Redis 缓存数据库
-6. Kafka 消息队列
+6. RocketMQ 消息队列
 
 ## 项目日志
 
@@ -105,3 +105,13 @@
 > 添加赋权接口
 >
 > 添加删除权限接口
+>
+> 配置RocketMQ，实现RocketMQTemplate注入SpringBoot容器
+
+### 2022.12.10
+
+> 编写测试类
+>
+> 配置相关RocketMQTemplate
+>
+> 进行重构与注释文档的编写

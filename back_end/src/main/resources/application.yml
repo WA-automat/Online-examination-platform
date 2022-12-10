@@ -61,3 +61,16 @@ spring:
 # MyBatis-Plus路径配置
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
+
+# rocketMQ配置
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: csoep-producer-group
+    send-message-timeout: 300000
+    compress-message-body-threshold: 4096
+    max-message-size: 4194304
+    retry-next-server: true
+  consumer:
+    group: csoep-consumer-group
+#    enable-msg-trace: false

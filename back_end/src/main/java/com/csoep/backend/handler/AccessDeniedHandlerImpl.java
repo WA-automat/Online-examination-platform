@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 权限异常实现类
+ */
 @Component
 public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 	@Override

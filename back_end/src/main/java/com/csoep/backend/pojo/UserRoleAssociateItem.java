@@ -20,14 +20,24 @@ import lombok.NonNull;
 @NoArgsConstructor
 public class UserRoleAssociateItem {
 
+	/**
+	 * 元组id
+	 * 主键
+	 */
 	@TableField(value = "id")
 	@TableId(type = IdType.AUTO)
 	private Integer id;
 
+	/**
+	 * 关联的用户id
+	 */
 	@NonNull
 	@TableField(value = "user_id")
 	private Integer userId;
 
+	/**
+	 * 关联的角色id
+	 */
 	@NonNull
 	@TableField(value = "role_id")
 	private Integer roleId;

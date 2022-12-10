@@ -27,6 +27,11 @@ public class JwtUtil {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 
+	/**
+	 * 创建jwt token
+	 * @param subject 输入用户id
+	 * @return jwtToken
+	 */
 	public static String createJWT(String subject) {
 		JwtBuilder builder = getJwtBuilder(subject, null, getUUID());
 		return builder.compact();
@@ -58,6 +63,12 @@ public class JwtUtil {
 		return new SecretKeySpec(encodeKey, 0, encodeKey.length, "HmacSHA256");
 	}
 
+	/**
+	 * 解析token
+	 * @param jwt token
+	 * @return 封装了userid的内容
+	 * @throws Exception 异常
+	 */
 	public static Claims parseJWT(String jwt) throws Exception {
 		SecretKey secretKey = generalKey();
 		return Jwts.parserBuilder()

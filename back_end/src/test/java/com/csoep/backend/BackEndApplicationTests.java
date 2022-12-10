@@ -7,6 +7,7 @@ import com.csoep.backend.pojo.User;
 import com.csoep.backend.service.mail.CheckCodeService;
 import com.csoep.backend.utils.JwtUtil;
 import com.csoep.backend.utils.ResponseResult;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import redis.clients.jedis.Jedis;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Scanner;
 
@@ -115,9 +117,23 @@ class BackEndApplicationTests {
 	@Autowired
 	private MenuMapper menuMapper;
 
+	/**
+	 * 测试权限表
+	 */
 	@Test
 	public void testMenuMapper() {
 		List<String> perms = menuMapper.selectPermsByUserId(1);
 		System.out.println(perms);
+	}
+
+	@Autowired
+	private RocketMQTemplate rocketmqTemplate;
+
+	/**
+	 * 测试RocketMQ消息队列
+	 */
+	@Test
+	public void testRocketMQ() {
+		rocketmqTemplate.convertAndSend("springboot-rocketmq", "hello world");
 	}
 }

@@ -6,6 +6,10 @@ import redis.clients.jedis.JedisPoolConfig;
 
 import java.util.ResourceBundle;
 
+/**
+ * jedis工具类
+ * 用于配置jedis
+ */
 public class JedisUtils {
     private static final JedisPool jp;
     private static final String host;

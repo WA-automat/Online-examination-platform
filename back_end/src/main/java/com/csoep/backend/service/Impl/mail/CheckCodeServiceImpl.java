@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * 验证码实现类
+ * 验证码接口实现类
  */
 @Service
 public class CheckCodeServiceImpl implements CheckCodeService {
@@ -32,6 +32,13 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 	@Value("${spring.redis.port}")
 	private Long port;
 
+	/**
+	 * 用于发送验证码的方法
+	 *
+	 * @param ops 发送验证码的字段(发送所为了的操作)
+	 * @param to  送达的email字符串
+	 * @return 返回响应报文
+	 */
 	@Override
 	public ResponseResult sendCheckCode(String ops, String to) {
 
@@ -58,7 +65,7 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 				throw new RuntimeException("error");
 			}
 
-			// 将验证码存入redis，并设置过期时间为两分钟
+			// 将验证码存入redis，并设置过期时间为五分钟
 //			redisCache.setCacheObject(ops + ":" + to, code.toString());
 //			redisCache.expire(ops + ":" + to, 2, TimeUnit.MINUTES);
 			jedis.connect();
@@ -70,7 +77,7 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 			}
 
 			jedis.set(ops + ":" + to, code.toString());
-			jedis.expire(ops + ":" + to, 120L);
+			jedis.expire(ops + ":" + to, 5 * 60L);
 //			jedis.expireAt(ops + ":" + to, 120 * 10000);
 //			System.out.println(jedis.get(ops + ":" + to));
 
@@ -90,6 +97,14 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 
 	}
 
+	/**
+	 * 检查验证码是否正确的方法
+	 *
+	 * @param ops   发送验证码的字段(发送所为了的操作)
+	 * @param email 送达的email字符串
+	 * @param code  填写的验证码
+	 * @return 返回响应报文
+	 */
 	@Override
 	public boolean check(String ops, String email, String code) {
 
@@ -110,7 +125,7 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 		}
 
 		// 若正确，需要从redis中删除验证码
-		// 没删掉也没关系，我们已经设置验证码时间为2分钟
+		// 没删掉也没关系，我们已经设置验证码时间为5分钟
 //		redisCache.deleteObject(ops + ":" + email);
 		jedis.del(ops + ":" + email);
 

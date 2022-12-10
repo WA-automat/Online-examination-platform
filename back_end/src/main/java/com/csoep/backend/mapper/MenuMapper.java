@@ -8,5 +8,5 @@ import java.util.List;
 
 @Mapper
 public interface MenuMapper extends BaseMapper<Menu> {
-	List<String> selectPermsByUserId(Integer userid);
+	public List<String> selectPermsByUserId(Integer userid);
 }

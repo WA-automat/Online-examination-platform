@@ -16,6 +16,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * 权限分配服务的接口实现类
+ * 作用是为用户分配角色或为用户删除角色
+ * 注入spring容器中
+ */
 @Service
 public class AllocationServiceImpl implements AllocationService {
 

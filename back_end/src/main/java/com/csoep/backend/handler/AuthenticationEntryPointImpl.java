@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 认证异常实现类
+ */
 @Component
 public class AuthenticationEntryPointImpl
 		implements AuthenticationEntryPoint {

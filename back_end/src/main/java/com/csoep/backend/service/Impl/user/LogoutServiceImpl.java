@@ -9,6 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
+/**
+ * 退出登录实现类
+ */
 @Service
 public class LogoutServiceImpl implements LogoutService {
 
