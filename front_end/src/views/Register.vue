@@ -39,6 +39,9 @@
         <input type="text" class="form-control" id="CheckNumber" v-model="RegisterFrom.CheckNumber"  placeholder="请输入验证码">
         <button type="button" class="btn btn-secondary" id="SendCheckNum">发送验证码</button>
       </div>
+      <div class="mb-3">
+        <input type="text" class="form-control" id="InputPhone" v-model="RegisterFrom.phone" placeholder="手机号码">
+      </div>
       <button type="submit" class="btn btn-primary" style="width: 100%;background: #505458;border: none" id="RegisterSubmit">Register</button>
     </form>
   </body>
@@ -55,7 +58,8 @@ export default {
         password1:'',
         password2:'',
         email:'',
-        CheckNumber:''
+        CheckNumber:'',
+        phone:''
       }
     }
   },
@@ -105,5 +109,8 @@ body{
   height: 100%; /**宽高100%是为了图片铺满屏幕 */
   z-index: -1;
   position: absolute;
+}
+#InputPhone{
+  margin-top: 70px;
 }
 </style>
