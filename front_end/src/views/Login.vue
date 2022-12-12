@@ -2,7 +2,7 @@
   <body id="poster">
       <vue-particles
           class="particles-js"
-          color="#39AFFD"
+          color="#B0C4DE"
           :particleOpacity="0.7"
           :particlesNumber="150"
           shapeType="circle"
@@ -12,7 +12,7 @@
           :lineLinked="true"
           :lineOpacity="0.4"
           :linesDistance="150"
-          :moveSpeed="4"
+          :moveSpeed="5"
           :hoverEffect="true"
           hoverMode="grab"
           :clickEffect="true"
@@ -24,10 +24,10 @@
         登录
       </h4>
       <div class="mb-3">
-        <input type="text" class="form-control" id="InputUsername1" v-model="LoginForm.username" placeholder="用户名">
+        <input type="text" class="form-control" id="InputUsername1" v-model="LoginForm.username" placeholder="用户名" aria-describedby="inputGroupPrepend" required>
       </div>
       <div class="mb-3">
-        <input type="password" class="form-control" id="InputPassword1" v-model="LoginForm.password" placeholder="密码">
+        <input type="password" class="form-control" id="InputPassword1" v-model="LoginForm.password" placeholder="密码" aria-describedby="inputGroupPrepend" required>
       </div>
       <div>
         <a href="#/reset" class="link-secondary" style="float: left">忘记密码</a>
@@ -75,7 +75,7 @@ body{
 .login-container{
   border-radius: 15px;
   background-clip: padding-box;
-  margin: 150px auto;
+  margin: 130px auto;
   width: 350px;
   padding: 35px 35px 15px 35px;
   background: #fff;
@@ -90,7 +90,7 @@ a:hover{
 }
 .particles-js{
   width: 100%;
-  height: 100%; /**宽高100%是为了图片铺满屏幕 */
+  height: 100%; /* 宽高100%是为了图片铺满屏幕 */
   z-index: -1;
   position: absolute;
 }

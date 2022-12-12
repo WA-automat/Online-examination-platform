@@ -2,14 +2,14 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 /*import HomeView from '../views/HomeView.vue'*/
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
-import AboutView from '../views/AboutView'
-import ResetPsd from "@/views/ResetPsd";
+import HomeView from '../views/HomeView'
+import ResetPwd from "@/views/ResetPwd";
 
 const routes = [
   {
     path: '/',
     name: 'Introduce',
-    component: AboutView
+    component: HomeView
   },
   {
     path: '/login',
@@ -24,7 +24,7 @@ const routes = [
   {
     path: '/reset',
     name: 'Reset',
-    component: ResetPsd
+    component: ResetPwd
   },
 ]
 
