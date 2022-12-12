@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import AboutView from '../views/AboutView'
+import ResetPsd from "@/views/ResetPsd";
 
 const routes = [
   {
@@ -19,7 +20,12 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
-  }
+  },
+  {
+    path: '/reset',
+    name: 'Reset',
+    component: ResetPsd
+  },
 ]
 
 const router = createRouter({

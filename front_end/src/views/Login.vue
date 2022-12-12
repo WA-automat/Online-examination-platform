@@ -30,6 +30,7 @@
         <input type="password" class="form-control" id="InputPassword1" v-model="LoginForm.password" placeholder="密码">
       </div>
       <div>
+        <a href="#/reset" class="link-secondary" style="float: left">忘记密码</a>
         <a href="#/register" class="link-secondary" style="float: right">注册</a>
       </div>
       <button type="submit" class="btn btn-primary" id="LoginSubmit" style="width: 100%;background: #505458;border: none">Login</button>
