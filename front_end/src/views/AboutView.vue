@@ -1,5 +1,8 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <p>介绍页还没写</p>
+    <div>
+      <a href="#/login">登录/注册</a>
+    </div>
   </div>
 </template>
