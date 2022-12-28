@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 邮件工具类
+ *
  * @author WA_automat
  * @since 1.0
  */

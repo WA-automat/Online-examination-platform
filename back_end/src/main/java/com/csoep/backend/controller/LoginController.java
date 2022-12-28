@@ -55,8 +55,13 @@ public class LoginController {
 			@RequestParam String password,
 			@RequestParam String confirmPassword
 	) {
-		// 密码
-		return resetService.resetPassword(email, checkCode, password, confirmPassword);
+		// 重置密码
+		return resetService.resetPassword(
+				email,
+				checkCode,
+				password,
+				confirmPassword
+		);
 	}
 
 }

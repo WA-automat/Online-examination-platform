@@ -51,7 +51,7 @@ public class ResetServiceImpl implements ResetService {
 		}
 
 		// 前后两次密码不一致
-		if(!Objects.equals(password, confirmPassword)){
+		if (!Objects.equals(password, confirmPassword)) {
 			Map<String, String> map = new HashMap<>();
 			map.put("state", "error");
 			return new ResponseResult(400, "两次密码不一致", map);

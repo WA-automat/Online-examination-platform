@@ -24,28 +24,27 @@ public class SwaggerConfig {
 	@Bean
 	public Docket docket(Environment environment) {
 		//指定在dev/test环境下使用swagger
-		Profiles profiles = Profiles.of("dev", "test");
-		System.out.println(profiles);
-		boolean flag = environment.acceptsProfiles(profiles);
+//		Profiles profiles = Profiles.of("dev", "test");
+//		System.out.println(profiles);
+//		boolean flag = environment.acceptsProfiles(profiles);
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(apiInfo())
-				.enable(flag)//关闭swagger,默认是true
+//				.enable(flag)//关闭swagger,默认是true
 				.select()
 				//RequestHandlerSelectors：配置要扫描的方式，有basePackage("路径")、any():扫描全部，none():全部不扫描
 				//RequestHandlerSelectors.withMethodAnnotation():扫描方法上的注解
 				//.withClassAnnotation()：扫描类上的注解
 				.apis(RequestHandlerSelectors.basePackage("com.csoep.backend.controller"))//指定扫描的包
-				.paths(PathSelectors.ant("/hello/**"))//设置请求路径，这里是带有hello的请求路径
 				.build();
 	}
 
 	private ApiInfo apiInfo() {
-		Contact contact = new Contact("WA_automat", "https://github.com/WA-automat", "csoep_scnu@163.com");
+		Contact contact = new Contact("WA_automat", "https://wa-automat.github.io/", "csoep_scnu@163.com");
 		return new ApiInfo(
-				"WA_automat的Api",
+				"Online-examination-platform Api",
 				"Api Documentation",
 				"v1.0",
-				"https://github.com/WA-automat",
+				"https://github.com/WA-automat/Online-examination-platform",
 				contact,
 				"Apache 2.0",
 				"http://www.apache.org/licenses/LICENSE-2.0",

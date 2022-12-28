@@ -15,6 +15,7 @@ import java.util.UUID;
 /**
  * JwtUtil
  * 生成JwtToken和解析Token的工具类
+ *
  * @author WA_automat
  * @since 1.0
  */
@@ -29,6 +30,7 @@ public class JwtUtil {
 
 	/**
 	 * 创建jwt token
+	 *
 	 * @param subject 输入用户id
 	 * @return jwtToken
 	 */
@@ -65,6 +67,7 @@ public class JwtUtil {
 
 	/**
 	 * 解析token
+	 *
 	 * @param jwt token
 	 * @return 封装了userid的内容
 	 * @throws Exception 异常

@@ -10,6 +10,7 @@ import java.io.IOException;
 
 /**
  * 解决前后端跨域问题的配置类
+ *
  * @author WA_automat
  * @since 1.0
  */
@@ -21,12 +22,12 @@ public class CorsConfig implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 
 		String origin = request.getHeader("Origin");
-		if(origin!=null) {
+		if (origin != null) {
 			response.setHeader("Access-Control-Allow-Origin", origin);
 		}
 
 		String headers = request.getHeader("Access-Control-Request-Headers");
-		if(headers!=null) {
+		if (headers != null) {
 			response.setHeader("Access-Control-Allow-Headers", headers);
 			response.setHeader("Access-Control-Expose-Headers", headers);
 		}

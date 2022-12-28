@@ -74,3 +74,6 @@ rocketmq:
   consumer:
     group: csoep-consumer-group
 #    enable-msg-trace: false
+
+swagger2:
+  enable: true
