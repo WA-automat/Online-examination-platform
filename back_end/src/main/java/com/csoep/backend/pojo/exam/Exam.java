@@ -27,11 +27,19 @@ public class Exam {
 
 	/**
 	 * 考试的名称
-	 * 全称
+	 * 考试全称
 	 */
 	@NonNull
 	@TableField(value = "exam_name")
 	private String examName;
+
+	/**
+	 * 创建者
+	 * 考试的创建者
+	 */
+	@NonNull
+	@TableField(value = "creator")
+	private Integer creator;
 
 	/**
 	 * 考试起始时间
@@ -57,14 +65,17 @@ public class Exam {
 
 	/**
 	 * 邀请码
+	 * 若为私有考试
+	 * 只有拥有邀请码的才可以访问
 	 */
 	@TableField(value = "invite_code")
 	private String inviteCode;
 
 	/**
 	 * 题目数
+	 * 考试所包含的题目数
 	 */
-	@NonNull
 	@TableField(value = "question_num")
 	private Integer questionNumber;
+
 }

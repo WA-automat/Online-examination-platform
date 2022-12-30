@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.csoep.backend.mapper.ExamMapper">
+    <select id="selectExamsByUserId" resultType="com.csoep.backend.pojo.exam.Exam">
+        SELECT e.id, e.exam_name, e.creator, e.start_time,
+               e.end_time, e.type, e.invite_code, e.question_num
+        FROM sys_user_exam ue
+            LEFT JOIN exam e ON ue.exam_id = e.id
+        WHERE user_id = #{userid};
+    </select>
 </mapper>
